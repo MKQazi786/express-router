@@ -21,7 +21,7 @@ router.put('/post/:userId', (req, res, next) => {
     res.send("your post is SUCCESFULLY POSTED", + new Date())
 })
 
-router.delete('/post/:userId', (req, res, next) => {
+router.delete('/post/:userId/:postId', (req, res, next) => {
     console.log("your post is deleted", + new Date())
     res.send("your post is deleted", + new Date())
 })
