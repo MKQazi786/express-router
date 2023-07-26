@@ -1,17 +1,14 @@
 import express from 'express';
 import path from 'path';
-import { authRouter } from "./Api v1/routes/auth.mjs";
-import { commentRouter } from "./Api v1/routes/comment.mjs";
-import { feedRouter } from "./Api v1/routes/feed.mjs";
-import { postRouter } from "./Api v1/routes/post.mjs";
 
-import { authRouter } from "./Api v2/routes/auth.mjs";
-import { commentRouter } from "./Api v2/routes/comment.mjs";
-import { feedRouter } from "./Api v2/routes/feed.mjs";
-import { postRouter } from "./Api v2/routes/post.mjs";
+import ApiV1Router from './ApiV1/api_v1.mjs'
+import ApiV2Router from './ApiV2/api_v2.mjs'
 
 const app = express()
-const PORT = process.env.PORT || 3000
+
+app.use (ApiV1Router)
+app.use (ApiV2Router)
+
 
 app.get('/', (req, res) => {
   console.log('Hello World!', new Date());
@@ -22,14 +19,7 @@ app.get('/profile', (req, res) => {
   res.send('this is profile!' + new Date());
 })
 
-app.use("/api/v1", authRouter)
-
-app.use("/api/v1", commentRouter)
-
-app.use("/api/v1", feedRouter)
-
-app.use("/api/v1", postRouter)
-
+const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`)
