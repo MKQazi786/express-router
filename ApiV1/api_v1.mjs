@@ -12,13 +12,14 @@ router.use("/api/v1", authRouter)
 
 const app = express();
 
-// app.use((req, res, next) => {
-//     if (token === "valid") {
-//         next();
-//     } else {
-//         res.send({ message: "invalid token" })
-//     }
-// })
+app.use((req, res, next) => {
+    const token = "valid"
+    if (token === "valid") {
+        next();
+    } else {
+        res.send({ message: "invalid token" })
+    }
+})
 
 
 router.use("/api/v1", commentRouter)
