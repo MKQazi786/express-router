@@ -6,6 +6,8 @@ import ApiV2Router from './ApiV2/api_v2.mjs'
 
 const app = express()
 
+app.use(express.json()); 
+
 app.use (ApiV1Router)
 app.use (ApiV2Router)
 

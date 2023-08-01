@@ -4,14 +4,14 @@ let router = express.Router()
 //not recommemnded only for practice
 let post = [
     {
-        id: "12345",
+        id: "12435",
         title: "Muhammad! muhammad Khubaib naam hai mera! ",
         text: "me jhuke ga nhi saala"
     }
 ]
 
 router.post('/post', (req, res, next) => {
-    console.log("your post is SUCCESFULLY POSTED", + new Date())
+    console.log("your post is SUCCESFULLY POSTED !", + new Date())
 
     if (!req.body.id || !req.body.title || !req.body.text)
     {
@@ -19,7 +19,7 @@ router.post('/post', (req, res, next) => {
         res.send(`required parameter is missing,
         example request body:
         {
-            id: "12345",
+            id: "12435",
             title: "Muhammad! muhammad Khubaib naam hai mera! ",
             text: "me jhuke ga nhi saala"
         }`
@@ -33,7 +33,7 @@ router.post('/post', (req, res, next) => {
         text: req.body.text 
     })
 
-    res.send("your post is SUCCESFULLY POSTED" + new Date())
+    res.send("your post is SUCCESFULLY POSTED! " + new Date())
 })
 
 router.get('/post/:userId/:postId', (req, res, next) => {
