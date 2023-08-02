@@ -45,13 +45,13 @@ router.get('/post/:userId/:postId', (req, res, next) => {
     console.log("your post is created", + new Date())
 
     for (i=0; i<posts.length;i++){
-        if(posts[i] === postId){
+        if(posts[i].id ===req.params.postId){
             res.send("post found with this id")
             return
         }
     }
 
-    res.send("post not found with this id" + new Date())
+    res.send("post not found with this id" + req.params + new Date())
 })
 
 router.get('/posts/:userId', (req, res, next) => {
