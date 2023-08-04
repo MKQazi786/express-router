@@ -4,7 +4,7 @@ let router = express.Router()
 //not recommemnded only for practice
 let posts = [
     {
-        id: "12435",
+        id: 12435,
         title: "Muhammad! muhammad Khubaib naam hai mera! ",
         text: "me jhuke ga nhi saala"
     }
@@ -13,8 +13,7 @@ let posts = [
 router.post('/post', (req, res, next) => {
     console.log("your post is SUCCESFULLY POSTED !", + new Date())
 
-    if (!req.body.id || !req.body.title || !req.body.text)
-    {
+    if (!req.body.id || !req.body.title || !req.body.text) {
         res.status(403)
         res.send(`required parameter is missing,
         example request body:
@@ -30,7 +29,7 @@ router.post('/post', (req, res, next) => {
     posts.push({
         id: req.body.id,
         title: req.body.title,
-        text: req.body.text 
+        text: req.body.text
     })
 
     res.send("your post is SUCCESFULLY POSTED! " + new Date())
@@ -44,14 +43,18 @@ router.get('/posts', (req, res, next) => {
 router.get('/post/:userId/:postId', (req, res, next) => {
     console.log("your post is created", + new Date())
 
-    for (i=0; i<posts.length;i++){
-        if(posts[i].id ===req.params.postId){
-            res.send("post found with this id")
+    if(isNaN(req.params.postId)){
+        res.status(403).send(`post id is must be always numeric, alphnumeric and alphabets are not allowed`)
+    }
+
+    for (let i = 0; i < posts.length; i++) {
+        if (posts[i].id === Number(req.params.postId)) {
+            res.send(posts[i])
             return
         }
     }
 
-    res.send("post not found with this id" + req.params + new Date())
+    res.send("post not found with id " + req.params.postId + ' ' + new Date())
 })
 
 router.get('/posts/:userId', (req, res, next) => {
@@ -68,6 +71,6 @@ router.put('/post/:userId', (req, res, next) => {
 router.delete('/post/:userId/:postId', (req, res, next) => {
     console.log("your post is deleted", + new Date())
     res.send("your post is deleted" + new Date())
-})  
+})
 
 export default router
