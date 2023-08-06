@@ -18,7 +18,7 @@ router.post('/post', (req, res, next) => {
         res.send(`required parameter is missing,
         example request body:
         {
-            id: "12435",
+            id: 12435,
             title: "Muhammad! muhammad Khubaib naam hai mera! ",
             text: "me jhuke ga nhi saala"
         }`
@@ -41,20 +41,20 @@ router.get('/posts', (req, res, next) => {
 })
 
 router.get('/post/:userId/:postId', (req, res, next) => {
-    console.log("your post is created", + new Date())
-
-    if(isNaN(req.params.postId)){
+    
+    if (isNaN(req.params.postId)) {
         res.status(403).send(`post id is must be always numeric, alphnumeric and alphabets are not allowed`)
     }
-
+    
     for (let i = 0; i < posts.length; i++) {
         if (posts[i].id === Number(req.params.postId)) {
             res.send(posts[i])
             return
         }
     }
-
+    
     res.send("post not found with id " + req.params.postId + ' ' + new Date())
+    console.log(`you get a post with this ${req.params.postId}`, + new Date())
 })
 
 router.get('/posts/:userId', (req, res, next) => {
@@ -63,9 +63,32 @@ router.get('/posts/:userId', (req, res, next) => {
 })
 
 
-router.put('/post/:userId', (req, res, next) => {
-    console.log("your post is SUCCESFULLY POSTED", + new Date())
-    res.send("your post is SUCCESFULLY POSTED" + new Date())
+router.put('/post/:userId/:postId', (req, res, next) => {
+    console.log("your post is SUCCESFULLY updated", + new Date())
+
+    for (let i = 0; i < posts.length; i++){
+        if(posts[i].id === req.params.postId){
+            if (!req.body.title || !req.body.text) {
+                res.status(403)
+                res.send(`required parameter is missing,
+                example request body:
+                {
+                    title: "Muhammad! muhammad Khubaib naam hai mera! ",
+                    text: "jo dil kre likho"
+                }`
+                )
+                return
+            }
+        
+            posts.({
+                title: req.body.title,
+                text: req.body.text
+            })
+        
+        }
+    }
+
+        res.send("your post is SUCCESFULLY updated" + new Date())
 })
 
 router.delete('/post/:userId/:postId', (req, res, next) => {
