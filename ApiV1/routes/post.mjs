@@ -67,7 +67,10 @@ router.put('/post/:userId/:postId', (req, res, next) => {
     console.log("your post is SUCCESFULLY updated", + new Date())
 
     for (let i = 0; i < posts.length; i++){
-        if(posts[i].id === req.params.postId){
+        console.log(`Checking post ${i}:`, posts[i].id);
+
+        if(Number(req.params.postId) ===  posts[i].id){
+
             if (!req.body.title || !req.body.text) {
                 res.status(403)
                 res.send(`required parameter is missing,
@@ -80,15 +83,14 @@ router.put('/post/:userId/:postId', (req, res, next) => {
                 return
             }
         
-            posts.({
-                title: req.body.title,
-                text: req.body.text
-            })
+            posts[i].title = req.body.title;
+            posts[i].text = req.body.text;
         
         }
     }
+    console.log("End of loop");
 
-        res.send("your post is SUCCESFULLY updated" + new Date())
+    res.send("your post is SUCCESFULLY updated" + new Date())
 })
 
 router.delete('/post/:userId/:postId', (req, res, next) => {
