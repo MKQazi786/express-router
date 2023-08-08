@@ -67,7 +67,6 @@ router.put('/post/:userId/:postId', (req, res, next) => {
     console.log("your post is SUCCESFULLY updated", + new Date())
 
     for (let i = 0; i < posts.length; i++){
-        console.log(`Checking post ${i}:`, posts[i].id);
 
         if(Number(req.params.postId) ===  posts[i].id){
 
@@ -88,14 +87,20 @@ router.put('/post/:userId/:postId', (req, res, next) => {
         
         }
     }
-    console.log("End of loop");
-
     res.send("your post is SUCCESFULLY updated" + new Date())
 })
 
 router.delete('/post/:userId/:postId', (req, res, next) => {
     console.log("your post is deleted", + new Date())
+
+    for(let i=0;i<posts.length;i++){
+        if(posts[i].id === Number(req.params.postId)){
+            posts.splice(posts[i])
+        }
+    }
+
     res.send("your post is deleted" + new Date())
+    
 })
 
 export default router
